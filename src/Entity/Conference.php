@@ -13,7 +13,7 @@ class Conference
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private $id;
 
     #[ORM\Column(length: 255)]
     private ?string $city = null;
@@ -32,7 +32,10 @@ class Conference
         $this->comments = new ArrayCollection();
     }
 
-    public function
+    public function __toString(): string
+    {
+        return $this->city.' '.$this->year;
+    }
 
     public function getId(): ?int
     {

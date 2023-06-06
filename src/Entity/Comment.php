@@ -12,7 +12,7 @@ class Comment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private $id;
 
     #[ORM\Column(length: 255)]
     private ?string $author = null;
@@ -28,10 +28,15 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Conference $conference = null;
+    private Conference $conference;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $photFilename = null;
+    private ?string $photoFilename = null;
+
+    public function __toString(): string
+    {
+        return (string) $this->getEmail();
+    }
 
     public function getId(): ?int
     {
@@ -98,14 +103,14 @@ class Comment
         return $this;
     }
 
-    public function getPhotFilename(): ?string
+    public function getPhotoFilename(): ?string
     {
-        return $this->photFilename;
+        return $this->photoFilename;
     }
 
-    public function setPhotFilename(?string $photFilename): self
+    public function setPhotoFilename(?string $photoFilename): self
     {
-        $this->photFilename = $photFilename;
+        $this->photoFilename = $photoFilename;
 
         return $this;
     }
